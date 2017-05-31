@@ -1,0 +1,5 @@
+Input the number you need:
+Correct!
+Wrong!
+The correct number your have done:
+The wrong number your have done:
