@@ -13,15 +13,52 @@ public:
     void Statistics(int j);    //统计正误题数
 };
 
-class Random		//随机算式类
+class Random		//基类  
+{
+protected:
+	int n;			//作为随机数使用 
+public:
+	virtual void random()=0;			//纯虚函数，留给派生类重载
+};
+class RandomNumber:virtual public Random			//生成随机数 
+{
+protected:
+	int num[5];							//添加成员，存储随机数 
+public: 
+	void random();						//重载 
+	int get_number(int i)	
+	{
+		return num[i];
+	}
+};
+class RandomOperation:virtual public Random			//生成随机符号 
+{
+protected:
+	char operation[4];					//添加成员，存储随机符号 
+public:
+	void random();						//重载 
+	char get_operation(int i)
+	{
+		return operation[i];
+	}
+};
+class RandomExpression:public RandomOperation,public RandomNumber		//随机式子部分 
 {
 public:
-	int type;
-    int num[5];
-    char operation[4];
-    void RandomNumber();
-    void Randomoperation();
-    int Randomexpression(char s[30]); 	 //生成随机式子
+	RandomExpression();													//构造函数
+	RandomExpression(RandomNumber &t1,RandomOperation &t2)				//构造函数 
+	{
+		for(int i=1;i<5;i++)
+		{
+			num[i]=t1.get_number(i);
+		}
+		for(int i=1;i<4;i++)
+		{
+			operation[i]=t2.get_operation(i);
+		}
+	}
+	void random(){};
+	void random(char s[30]);
 };
 
 class Calculate		//计算类

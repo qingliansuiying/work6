@@ -16,7 +16,8 @@ int main()
 	Interaction inter;
 	File file;
 	Calculate caculate;
-	Random random;
+	RandomNumber randomnumber;
+	RandomOperation randomoperation;
 	Judge judge;
 	cout<<"Welcom!"<<"Please choose the language you need:"<<endl;		//进行语言选择
 	cout<<"1.中文"<<"	"<<"2.英文"<<endl;
@@ -26,14 +27,19 @@ int main()
 	cin>>sum;
 	while(judge.Judgeend(i,sum))
 	{
-		random.RandomNumber();
-		random.Randomoperation();
-		type=random.Randomexpression(s);
+		randomnumber.random();
+		randomoperation.random();
+		RandomExpression randomexpression(randomnumber,randomoperation);
+		randomexpression.random(s);
 		check=caculate.calculateresult(s);
 		if(judge.Judgeresult(check))					//输出式子 
 		{
 			i++;
-			cout<<s<<'=';
+			for(i=0;i<strlen(s);i++)
+			{
+				cout<<s[i];
+			}
+			cout<<'=';
 			cin>>answer;
 			if(judge.Judgeanswer(answer,check))			//判断答案正误 
 			{

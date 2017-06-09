@@ -27,24 +27,22 @@ void Interaction::Statistics(int j)
 	else
 		wrong++;
 }
-
-void Random::RandomNumber()				//生成随机数 
+void RandomNumber::random()				
 {
 	srand(time(0));
-	int j;
-	for(j=1;j<=4;j++)
+	for(int j=1;j<=4;j++)
 	{
-		num[j]=rand()%10;
+		n=rand()%10;
+		num[j]=n;
 	}
 }
-void Random::Randomoperation()			//生成符号 
+void RandomOperation::random()
 {
 	srand(time(0));
-	int choose,j;
-	for(j=1;j<=3;j++)
+	for(int j=1;j<=3;j++)
 	{
-		choose=rand()%4;
-    	switch(choose)
+		n=rand()%4;
+    	switch(n)
 		{
           	case 0:operation[j]='+';break;
         	case 1:operation[j]='-';break;
@@ -53,11 +51,11 @@ void Random::Randomoperation()			//生成符号
 		}
 	}
 }
-int Random::Randomexpression(char s[30])
+void RandomExpression::random(char s[30])
 {
 	srand(time(0));
-	type=rand()%6;
-	switch(type)						//生产成随机式子部分 
+	n=rand()%6;
+	switch(n)						//生产成随机式子部分 
 	{
 	case 0:
 		s[0]=char(num[1]+'0');
@@ -126,9 +124,7 @@ int Random::Randomexpression(char s[30])
 		s[10]=')';
 		break;
 	}
-	return type;
 }
-
 float Calculate::calculateresult(char s[30])
 {
 	int flag=0;
@@ -239,7 +235,17 @@ float Calculate::calculateresult(char s[30])
 		result=-1;
 	return result;
 }
-
+void File::Language(int l,string lan[10])		
+{
+	ifstream fin("1.txt");
+	int i=0;
+	string t;
+	for(;!fin.eof();)
+	{
+ 	   getline(fin,lan[i],'\n');
+ 	   i++;
+	}
+}
 bool Judge::Judgeend(int j,int n)			//判断类
 {
 	if(j==n)
@@ -264,15 +270,4 @@ bool Judge::Judgeanswer(int ans,float result)		//判断用户答案是否正确
 		return false;
 }
 
-void File::Language(int l,string lan[10])		//语言读取这一部分存在小问题：不知道怎么处理才能读取不同的文件，还在尝试中 
-{
-	ifstream fin("1.txt");
-	int i=0;
-	string t;
-	for(;!fin.eof();)
-	{
- 	   getline(fin,lan[i],'\n');
- 	   i++;
-	}
-}
 
